@@ -17,16 +17,21 @@ spec:
   template:
     metadata:
       labels:
-{{ include "goci-service.labels" . | indent 8 }}
         type: Service
+{{ include "goci-service.labels" . | indent 8 }}
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{ toYaml . | nindent 8 }}
+      {{- end }}
+      annotations:
     spec:
       securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
+        runAsUser: {{ .Values.runAsUser | default 1000 }}
+        runAsGroup: {{ .Values.runAsGroup | default 1000 }}
       terminationGracePeriodSeconds: 300
       serviceAccountName: {{ .Release.Namespace }}-apps
       containers:
-        - name: {{ .Chart.Name }}
+        - name: app
           {{- if .Values.image.repository -}}
           image: "{{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
           {{- else }}
@@ -39,19 +44,20 @@ spec:
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /
+              path: {{ .Values.health.path }}
               port: http
+              initialDelaySeconds: 30
           readinessProbe:
             httpGet:
-              path: /
+              path: {{ .Values.readiness.path }}
               port: http
           securityContext:
             allowPrivilegeEscalation: false
           resources:
-{{- toYaml .Values.resources | nindent 12 }}
+            {{- toYaml .Values.resources | nindent 12 }}
           {{- with .Values.envVars }}
           env:
-{{- toYaml .Values.envVars | nindent 12 }}
+            {{- toYaml . | nindent 12 }}
           {{- end }}
           envFrom:
           - secretRef:
@@ -60,11 +66,3 @@ spec:
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-    {{- with .Values.affinity }}
-      affinity:
-        {{- toYaml . | nindent 8 }}
-    {{- end }}
-    {{- with .Values.tolerations }}
-      tolerations:
-        {{- toYaml . | nindent 8 }}
-    {{- end }}

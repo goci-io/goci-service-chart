@@ -20,7 +20,7 @@ spec:
       name: cpu
       target:
         type: AverageUtilization
-        averageUtilization: {{ .Values.autoscaling.averageUtilization }}
+        averageUtilization: {{ .Values.autoscaling.targetAverageUtilization }}
   {{- if .Values.ingress.enabled -}}
   - type: Object
     object:
@@ -32,6 +32,6 @@ spec:
         name: main-route
       target:
         kind: Value
-        value: {{ .Values.autoscaling.requestsPerSecond }}
+        value: {{ .Values.autoscaling.targetRequestsPerSecond }}
   {{- end }}
 {{- end }}
