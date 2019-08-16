@@ -32,6 +32,6 @@ spec:
         name: main-route
       target:
         kind: Value
-        value: {{ .Values.autoscaling.requestsPerSecond }}
+        value: {{ .Values.autoscaling.targetRequestsPerSecond }}
   {{- end }}
 {{- end }}
