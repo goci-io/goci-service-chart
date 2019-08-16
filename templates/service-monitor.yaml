@@ -1,0 +1,36 @@
+{{- if and .Values.metrics.enabled .Values.metrics.serviceMonitor.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ template "goci-service.fullname" . }}
+  {{- if .Values.metrics.serviceMonitor.namespace }}
+  namespace: {{ .Values.metrics.serviceMonitor.namespace }}
+  {{- end }}
+  labels:
+{{ include "goci-service.labels" . | indent 4 }}
+    chart: {{ template "goci-service.chart" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    {{- with .Values.metrics.serviceMonitor.additionalLabels }}
+{{ toYaml . | indent 4 }}
+    {{- end }}
+spec:
+  endpoints:
+  - interval: 30s
+    port: metrics
+    {{- with .Values.metrics.serviceMonitor.relabellings }}
+    metricRelabelings:
+{{ toYaml . | indent 4 }}
+    {{- end }}
+  jobLabel: {{ template "goci-service.fullname" . }}
+  namespaceSelector:
+    matchNames:
+    - "{{ $.Release.Namespace }}"
+  selector:
+    matchLabels:
+      app: {{ .Values.name }}
+      namespace: {{ .Release.Namespace }}
+      chart: {{ template "goci-service.chart" . }}
+      release: "{{ .Release.Name }}"
+      heritage: "{{ .Release.Service }}"
+{{- end }}      

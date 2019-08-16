@@ -57,3 +57,9 @@ podDisruptionBudget:
 tolerations: []
 
 affinity: {}
+
+metrics:
+  enabled: false
+  serviceMonitor:
+    enabled: false
+    
