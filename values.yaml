@@ -61,7 +61,6 @@ autoscaling:
 
 podDisruptionBudget:
   enabled: true
-  minUnavailable: 1
 
 metrics:
   enabled: false
