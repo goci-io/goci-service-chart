@@ -16,8 +16,8 @@ metadata:
     {{- end }}
 spec:
   endpoints:
-  - interval: 30s
-    port: metrics
+  - interval: {{ .Values.metrics.interval }}
+    port: {{ .Values.metrics.port }}
     {{- with .Values.metrics.serviceMonitor.relabellings }}
     metricRelabelings:
 {{ toYaml . | indent 4 }}
@@ -29,7 +29,6 @@ spec:
   selector:
     matchLabels:
       app: {{ .Values.name }}
-      namespace: {{ .Release.Namespace }}
       chart: {{ template "goci-service.chart" . }}
       release: "{{ .Release.Name }}"
       heritage: "{{ .Release.Service }}"

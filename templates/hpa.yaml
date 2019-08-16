@@ -20,7 +20,7 @@ spec:
       name: cpu
       target:
         type: AverageUtilization
-        averageUtilization: {{ .Values.autoscaling.averageUtilization }}
+        averageUtilization: {{ .Values.autoscaling.targetAverageUtilization }}
   {{- if .Values.ingress.enabled -}}
   - type: Object
     object:
