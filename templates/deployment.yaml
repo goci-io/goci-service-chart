@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "goci-service.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    type: Service
+{{ include "goci-service.labels" . | indent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.name }}
+      namespace: {{ .Release.Namespace }}
+      app.kubernetes.io/name: {{ include "goci-service.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }} 
+  template:
+    metadata:
+      labels:
+{{ include "goci-service.labels" . | indent 8 }}
+        type: Service
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+      terminationGracePeriodSeconds: 300
+      serviceAccountName: {{ .Release.Namespace }}-apps
+      containers:
+        - name: {{ .Chart.Name }}
+          {{- if .Values.image.repository -}}
+          image: "{{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
+          {{- else }}
+          image: "{{ .Values.image.name }}:{{ .Values.image.tag }}"
+          {{- end }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          securityContext:
+            allowPrivilegeEscalation: false
+          resources:
+{{- toYaml .Values.resources | nindent 12 }}
+          {{- with .Values.envVars }}
+          env:
+{{- toYaml .Values.envVars | nindent 12 }}
+          {{- end }}
+          envFrom:
+          - secretRef:
+              name: {{ include "goci-service.fullname" . }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}

@@ -1,0 +1,19 @@
+{{- if .Values.podDisruptionBudget.enabled -}}
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ include "goci-service.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    type: Service
+{{ include "goci-service.labels" . | indent 4 }}
+spec:
+  minAvailable: {{ .Values.podDisruptionBudget.minAvailable | default 2 }}
+  maxUnavailable: {{ .Values.podDisruptionBudget.maxUnavailable | default 1 }}
+  selector:
+    matchLabels:
+      app: {{ .Values.name }}
+      namespace: {{ .Release.Namespace }}
+      app.kubernetes.io/name: {{ include "goci-service.name" . }}
+      app.kubernetes.io/instance: {{ .Releas.Name }}
+{{- end }}
