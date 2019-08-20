@@ -1,5 +1,7 @@
 # goci-service-chart
 
+#### Maintained by [@goci-io/prp-kubernetes](https://github.com/orgs/goci-io/teams/prp-kubernetes)
+
 This chart is used to deploy applications with full configuration and ability to customize.
 
 
