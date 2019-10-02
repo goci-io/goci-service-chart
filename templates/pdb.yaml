@@ -15,5 +15,5 @@ spec:
       app: {{ .Values.name }}
       namespace: {{ .Release.Namespace }}
       app.kubernetes.io/name: {{ include "goci-service.name" . }}
-      app.kubernetes.io/instance: {{ .Releas.Name }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
