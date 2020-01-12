@@ -29,7 +29,7 @@ spec:
       describedObject:
         apiVersion: networking.k8s.io/v1beta1
         kind: Ingress
-        name: main-route
+        name: {{ include "goci-service.fullname" . }}
       target:
         kind: Value
         value: {{ .Values.autoscaling.targetRequestsPerSecond }}
