@@ -29,13 +29,15 @@ spec:
         runAsUser: {{ .Values.runAsUser | default 1000 }}
         runAsGroup: {{ .Values.runAsGroup | default 1000 }}
       terminationGracePeriodSeconds: 300
-      serviceAccountName: {{ .Release.Namespace }}-apps
+      {{- with .Values.serviceAccountName -}}
+      serviceAccountName: {{ . }}
+      {{- end }}
       containers:
         - name: app
           {{- if .Values.image.repository -}}
-          image: "{{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
+          image: "{{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           {{- else }}
-          image: "{{ .Values.image.name }}:{{ .Values.image.tag }}"
+          image: "{{ .Values.image.name }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           {{- end }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
