@@ -8,8 +8,11 @@ metadata:
     type: Service
 {{ include "goci-service.labels" . | indent 4 }}
 spec:
-  minAvailable: {{ .Values.podDisruptionBudget.minAvailable | default 1 }}
+  {{- if gt (.Values.podDisruptionBudget.minAvailable | int) 0 -}}
+  minAvailable: {{ .Values.podDisruptionBudget.minAvailable }}
+  {{- else}}
   maxUnavailable: {{ .Values.podDisruptionBudget.maxUnavailable | default 1 }}
+  {{- end }}
   selector:
     matchLabels:
       app: {{ .Values.name }}
