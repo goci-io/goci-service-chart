@@ -47,9 +47,11 @@ spec:
               path: {{ .Values.health.path }}
               port: http
               initialDelaySeconds: 15
+              periodSeconds: 30
           readinessProbe:
             httpGet:
               path: {{ .Values.readiness.path }}
+              initialDelaySeconds: 15
               port: http
           securityContext:
             allowPrivilegeEscalation: false
