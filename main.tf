@@ -15,10 +15,10 @@ data "null_data_source" "values" {
 }
 
 resource "helm_release" "deployment" {
-  name          = var.name
-  chart         = "./"
+  chart         = "./chart"
   recreate_pods = true
   wait          = true
+  name          = var.name
   namespace     = var.namespace
   values        = data.null_data_source.values.*.outputs.content
   
