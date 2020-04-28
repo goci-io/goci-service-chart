@@ -43,15 +43,15 @@ spec:
               containerPort: {{ .Values.port | default 8080 }}
               protocol: TCP
           livenessProbe:
+            initialDelaySeconds: 15
+            periodSeconds: 30
             httpGet:
               path: {{ .Values.health.path }}
               port: http
-              initialDelaySeconds: 15
-              periodSeconds: 30
           readinessProbe:
+            initialDelaySeconds: 15
             httpGet:
               path: {{ .Values.readiness.path }}
-              initialDelaySeconds: 15
               port: http
           securityContext:
             allowPrivilegeEscalation: false
