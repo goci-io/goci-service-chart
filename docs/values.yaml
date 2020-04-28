@@ -45,6 +45,11 @@ resources: {}
   #   cpu: 100m
   #   memory: 128Mi
 
+configMap:
+  enabled: false
+  # name: app-config
+  # data: {}
+
 health:
   path: /health
 

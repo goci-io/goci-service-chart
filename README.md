@@ -8,7 +8,7 @@ This chart is used to deploy applications with full configuration and ability to
 *More Documentation follows soon*
 
 
-Have a look into the [`templates`](templates) folder and [`values.yaml`](values.yaml) file.
+Have a look into the [`templates`](docs/templates) folder and default [`values.yaml`](docs/values.yaml) file.
 
 
 ## Package
@@ -18,6 +18,7 @@ This package includes:
 - Secret  
 - Service  
 - Ingress (optional)  
+- ConfigMap (optional)  
 - HorizontalPodAutoscaler (optional)
 - PodDisruptionBudget (optional)  
 - ServiceMonitor (optional)  

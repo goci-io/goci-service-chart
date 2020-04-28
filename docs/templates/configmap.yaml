@@ -1,0 +1,12 @@
+{{- if .Values.configMap.enabled -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.configMap.name }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    type: Service
+{{ include "goci-service.labels" . | indent 4 }}
+data:
+{{ toYaml .Values.configMap.data | nindent 2 }}
+{{- end }}
