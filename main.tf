@@ -1,9 +1,9 @@
 terraform {
   required_version = ">= 0.12.1"
-}
 
-provider "helm" {
-  version = "~> 0.10"
+  required_providers {
+    helm = "~> 1.0"
+  }
 }
 
 data "null_data_source" "values" {
@@ -19,6 +19,7 @@ resource "helm_release" "deployment" {
   chart         = "./"
   recreate_pods = true
   wait          = true
+  namespace     = var.namespace
   values        = data.null_data_source.values.*.outputs.content
   
   dynamic "set" {

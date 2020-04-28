@@ -4,6 +4,12 @@ variable "name" {
   description = "Deployment name"
 }
 
+variable "namespace" {
+  type        = string
+  default     = "default"
+  description = "Namespace to deploy the release into"
+}
+
 variable "values" {
   type        = list(string)
   default     = []
