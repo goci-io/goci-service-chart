@@ -8,8 +8,8 @@ port: 8080
 
 replicaCount: 3
 
-image: {}
-  # name: nginx
+image:
+  name: nginx
   # tag: stable
   # pullPolicy: IfNotPresent
 
