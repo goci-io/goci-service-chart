@@ -3,11 +3,11 @@ entries:
   goci-service:
   - apiVersion: v2
     appVersion: 1.17.10
-    created: "2020-04-28T13:26:28.095416+02:00"
+    created: "2020-05-01T19:28:05.136528+02:00"
     description: A Helm chart to deploy fully configured HTTP applications to Kubernetes
-    digest: 10b4cfbfe9384ecc0a302472485566537d28690ff9fb1e1d64e072d0f1518aaa
+    digest: 38e6177bb2a2f16ca4f00dc0ddd4faaed518b4da4c640f53a4910852b51d1fd1
     name: goci-service
     urls:
     - https://goci-io.github.io/goci-service-chart/goci-service-0.1.0.tgz
     version: 0.1.0
-generated: "2020-04-28T13:26:28.094424+02:00"
+generated: "2020-05-01T19:28:05.135308+02:00"
