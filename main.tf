@@ -21,7 +21,7 @@ resource "helm_release" "deployment" {
   name          = var.name
   namespace     = var.namespace
   values        = data.null_data_source.values.*.outputs.content
-  
+
   dynamic "set" {
     for_each = var.set
 
