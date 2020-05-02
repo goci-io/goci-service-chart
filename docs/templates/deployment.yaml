@@ -34,11 +34,7 @@ spec:
       {{- end }}
       containers:
         - name: app
-          {{- if .Values.image.repository -}}
-          image: "{{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          {{- else }}
           image: "{{ .Values.image.name }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          {{- end }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
@@ -49,11 +45,13 @@ spec:
             periodSeconds: 30
             httpGet:
               path: {{ .Values.health.path }}
+              scheme: {{ .Values.service.scheme }}
               port: http
           readinessProbe:
             initialDelaySeconds: 15
             httpGet:
               path: {{ .Values.readiness.path }}
+              scheme: {{ .Values.service.scheme }}
               port: http
           securityContext:
             allowPrivilegeEscalation: false
