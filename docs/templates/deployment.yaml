@@ -10,7 +10,7 @@ spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ .Values.name }}
+      app: {{ .Release.name }}
       namespace: {{ .Release.Namespace }}
       app.kubernetes.io/name: {{ include "goci-service.name" . }}
       app.kubernetes.io/instance: {{ .Release.Name }} 
@@ -35,7 +35,7 @@ spec:
       containers:
         - name: app
           image: "{{ .Values.image.name }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          imagePullPolicy: {{ .Values.image.pullPolicy | default "IfNotPresent" }}
           ports:
             - name: http
               containerPort: {{ .Values.port | default 8080 }}

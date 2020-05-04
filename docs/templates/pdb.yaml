@@ -15,7 +15,7 @@ spec:
   {{- end }}
   selector:
     matchLabels:
-      app: {{ .Values.name }}
+      app: {{ .Release.name }}
       namespace: {{ .Release.Namespace }}
       app.kubernetes.io/name: {{ include "goci-service.name" . }}
       app.kubernetes.io/instance: {{ .Release.Name }}

@@ -37,7 +37,7 @@ Common labels
 {{- define "goci-service.labels" -}}
 namespace: {{ .Release.Namespace }}
 stage: {{ .Values.stage }}
-app: {{ .Values.name }}
+app: {{ .Release.name }}
 app.kubernetes.io/name: {{ include "goci-service.name" . }}
 helm.sh/chart: {{ include "goci-service.chart" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
