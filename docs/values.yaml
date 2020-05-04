@@ -46,8 +46,8 @@ resources: {}
   #   memory: 128Mi
 
 configMap:
-  enabled: false
-  # name: app-config
+  enabled: true
+  # name: app-config (defaults to release name)
   # data: {}
 
 # extraVolumeMounts:
