@@ -26,8 +26,9 @@ spec:
       annotations:
     spec:
       securityContext:
-        runAsUser: {{ .Values.runAsUser | default 1000 }}
-        runAsGroup: {{ .Values.runAsGroup | default 1000 }}
+        fsGroup: {{ .Values.securityContext.fsGroup | default 1000 }}
+        runAsUser: {{ .Values.securityContext.runAsUser | default 1000 }}
+        runAsGroup: {{ .Values.securityContext.runAsGroup | default 1000 }}
       terminationGracePeriodSeconds: 300
       {{- with .Values.serviceAccountName }}
       serviceAccountName: {{ . }}
