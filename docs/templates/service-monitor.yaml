@@ -28,7 +28,7 @@ spec:
     - "{{ $.Release.Namespace }}"
   selector:
     matchLabels:
-      app: {{ .Release.name }}
+      app: {{ .Release.Name }}
       chart: {{ template "goci-service.chart" . }}
       release: "{{ .Release.Name }}"
       heritage: "{{ .Release.Service }}"
