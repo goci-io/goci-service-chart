@@ -10,7 +10,7 @@ spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ .Release.name }}
+      app: {{ .Release.Name }}
       namespace: {{ .Release.Namespace }}
       app.kubernetes.io/name: {{ include "goci-service.name" . }}
       app.kubernetes.io/instance: {{ .Release.Name }} 
@@ -29,7 +29,7 @@ spec:
         runAsUser: {{ .Values.runAsUser | default 1000 }}
         runAsGroup: {{ .Values.runAsGroup | default 1000 }}
       terminationGracePeriodSeconds: 300
-      {{- with .Values.serviceAccountName -}}
+      {{- with .Values.serviceAccountName }}
       serviceAccountName: {{ . }}
       {{- end }}
       containers:
