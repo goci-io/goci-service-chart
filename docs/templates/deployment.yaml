@@ -33,38 +33,53 @@ spec:
       serviceAccountName: {{ . }}
       {{- end }}
       containers:
-        - name: app
-          image: "{{ .Values.image.name }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy | default "IfNotPresent" }}
-          ports:
-            - name: http
-              containerPort: {{ .Values.port | default 8080 }}
-              protocol: TCP
-          livenessProbe:
-            initialDelaySeconds: 15
-            periodSeconds: 30
-            httpGet:
-              path: {{ .Values.health.path }}
-              scheme: {{ .Values.service.scheme }}
-              port: http
-          readinessProbe:
-            initialDelaySeconds: 15
-            httpGet:
-              path: {{ .Values.readiness.path }}
-              scheme: {{ .Values.service.scheme }}
-              port: http
-          securityContext:
-            allowPrivilegeEscalation: false
-          resources:
-            {{- toYaml .Values.resources | nindent 12 }}
-          {{- with .Values.envVars }}
-          env:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-          envFrom:
-          - secretRef:
-              name: {{ include "goci-service.fullname" . }}
+      - name: app
+        image: "{{ .Values.image.name }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy | default "IfNotPresent" }}
+        ports:
+        - name: http
+          containerPort: {{ .Values.port | default 8080 }}
+          protocol: TCP
+        livenessProbe:
+          initialDelaySeconds: 15
+          periodSeconds: 30
+          httpGet:
+            path: {{ .Values.health.path }}
+            scheme: {{ .Values.service.scheme }}
+            port: http
+        readinessProbe:
+          initialDelaySeconds: 15
+          httpGet:
+            path: {{ .Values.readiness.path }}
+            scheme: {{ .Values.service.scheme }}
+            port: http
+        securityContext:
+          allowPrivilegeEscalation: false
+        resources:
+          {{- toYaml .Values.resources | nindent 10 }}
+        {{- with .Values.extraVolumeMounts }}
+        volumeMounts:
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+        {{- with .Values.envVars }}
+        env:
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+        envFrom:
+        - secretRef:
+            name: {{ include "goci-service.fullname" . }}
+        {{- if .Values.configMap.enabled }}
+        - configMapRef:
+            name: {{ .Values.configMap.name | default .Release.Name }}
+        {{- end }}
+        {{- with .Values.envFrom }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      {{- with .Values.extraVolumes }}
+      volumes:
+      {{- toYaml . | nindent 6 }}
+      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
-        {{- toYaml . | nindent 8 }}
+      {{- toYaml . | nindent 6 }}
       {{- end }}

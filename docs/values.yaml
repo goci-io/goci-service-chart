@@ -46,9 +46,21 @@ resources: {}
   #   memory: 128Mi
 
 configMap:
-  enabled: false
-  # name: app-config
+  enabled: true
+  # name: app-config (defaults to release name)
   # data: {}
+
+# extraVolumeMounts:
+# - name: "mount"
+#   mountPath: "/mnt/"
+#   readOnly: true
+
+# extraVolumes:
+# - name: "mount"
+#   secret:
+#     secretName: mysecret
+#   ...
+#   https://kubernetes.io/docs/concepts/storage/volumes/
 
 health:
   path: /health
