@@ -1,4 +1,4 @@
-{{- if and .Values.metrics.enabled .Values.metrics.serviceMonitor.enabled }}
+{{- if and (.Values.metrics.enabled) (.Values.metrics.serviceMonitor.enabled) }}
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
@@ -28,7 +28,7 @@ spec:
     - "{{ $.Release.Namespace }}"
   selector:
     matchLabels:
-      app: {{ .Values.name }}
+      app: {{ .Release.name }}
       chart: {{ template "goci-service.chart" . }}
       release: "{{ .Release.Name }}"
       heritage: "{{ .Release.Service }}"
