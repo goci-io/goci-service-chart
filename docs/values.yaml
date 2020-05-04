@@ -50,6 +50,18 @@ configMap:
   # name: app-config
   # data: {}
 
+# extraVolumeMounts:
+# - name: "mount"
+#   mountPath: "/mnt/"
+#   readOnly: true
+
+# extraVolumes:
+# - name: "mount"
+#   secret:
+#     secretName: mysecret
+#   ...
+#   https://kubernetes.io/docs/concepts/storage/volumes/
+
 health:
   path: /health
 
