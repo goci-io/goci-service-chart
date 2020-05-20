@@ -42,14 +42,15 @@ spec:
           containerPort: {{ .Values.port | default 8080 }}
           protocol: TCP
         livenessProbe:
-          initialDelaySeconds: 15
-          periodSeconds: 30
+          initialDelaySeconds: 5
+          periodSeconds: {{ .Values.health.period | default 10 }}
           httpGet:
             path: {{ .Values.health.path }}
             scheme: {{ .Values.service.scheme }}
             port: http
         readinessProbe:
           initialDelaySeconds: 15
+          periodSeconds: {{ .Values.readiness.period | default 30 }}
           httpGet:
             path: {{ .Values.readiness.path }}
             scheme: {{ .Values.service.scheme }}
