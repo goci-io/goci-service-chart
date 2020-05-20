@@ -8,7 +8,7 @@ kind: ClusterRoleBinding
 metadata:
   name: {{ .Values.rbac.roleName | default .Release.Name }}
 {{- if .Values.rbac.appUser.create }}
-  namespace: user-1-namespace
+  namespace: {{ .Release.Namespace }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -22,5 +22,6 @@ roleRef:
 subjects:
 - apiGroup: rbac.authorization.k8s.io
   kind: ServiceAccount
+  namespace: {{ .Release.Namespace }}
   name: {{ .Values.rbac.serviceAccount | default .Release.Name }}
 {{- end }}
