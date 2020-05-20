@@ -111,7 +111,7 @@ metrics:
   serviceMonitor:
     enabled: false
 
-# extraManifests:
+extraManifests: []
 # - kind: Xy
 #   apiVersion: v1
 #   metadata:
