@@ -53,6 +53,6 @@ rules:
   verbs:
   - '*'
 {{- with .Values.rbac.additionalRules }}
-  {{ toYaml . | nindent 2 }}
+{{ toYaml . }}
 {{- end }}
 {{- end }}

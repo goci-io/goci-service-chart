@@ -26,6 +26,6 @@ rules:
   - get
   - list
 {{- with .Values.rbac.additionalRules }}
-  {{ toYaml . | nindent 2 }}
+{{ toYaml . }}
 {{- end }}
 {{- end }}
