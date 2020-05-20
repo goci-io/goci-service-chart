@@ -1,0 +1,26 @@
+{{- if .Values.rbac.create }}
+apiVersion: rbac.authorization.k8s.io/v1
+{{- if .Values.rbac.appUser.create }}
+kind: RoleBinding
+{{- else }}
+kind: ClusterRoleBinding
+{{- end }}
+metadata:
+  name: {{ include "goci-service.fullname" . }}
+{{- if .Values.rbac.appUser.create }}
+  namespace: user-1-namespace
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ .Values.rbac.appUser.name | default include "goci-service.fullname" . }}
+{{- else }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ .Values.rbac.superUser.name | default include "goci-service.fullname" . }}
+{{- end }}
+subjects:
+- apiGroup: rbac.authorization.k8s.io
+  kind: ServiceAccount
+  name: {{ .Values.rbac.serviceAccount | default include "goci-service.fullname" . }}
+{{- end }}

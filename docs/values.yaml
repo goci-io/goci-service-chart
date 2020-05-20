@@ -7,6 +7,16 @@ port: 8080
 
 replicaCount: 3
 
+rbac:
+  create: true
+  # serviceAccount: ""
+  superUser:
+    enabled: false
+    # name: ""
+  appUser:
+    enabled: false
+    # name: ""
+
 image:
   # name: nginx
   # tag: stable
