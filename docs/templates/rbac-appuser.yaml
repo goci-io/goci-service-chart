@@ -1,0 +1,31 @@
+{{- if and .Values.rbac.create .Values.rbac.appUser .Values.rbac.appUser.create }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ .Values.rbac.appUser.name | default include "goci-service.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    type: Service
+    {{ include "goci-service.labels" . | indent 4 }}
+rules:
+- apiGroups:
+  - ""
+  - extensions
+  resources:
+  - secrets
+  - configmaps
+  - endpoints
+  - services
+  - services/status
+  - ingresses/status
+  - ingresses
+  - pods
+  verbs:
+  - read
+  - watch
+  - get
+  - list
+{{- with .Values.rbac.appUser.additionalRules }}
+{{ toYaml . | nindent 2 }}
+{{- end }}
+{{- end }}

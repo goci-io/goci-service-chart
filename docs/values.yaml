@@ -7,6 +7,31 @@ port: 8080
 
 replicaCount: 3
 
+rbac:
+  create: true
+  # serviceAccount: ""
+  superUser:
+    create: false
+    # name: ""
+    # additionalRules:
+    # - apiGroups:
+    #   - ""
+    #   resources:
+    #   - pods
+    #   verbs:
+    #   - *
+
+  appUser:
+    create: false
+    # name: ""
+    # additionalRules:
+    # - apiGroups:
+    #   - ""
+    #   resources:
+    #   - pods
+    #   verbs:
+    #   - *
+
 image:
   # name: nginx
   # tag: stable
@@ -72,10 +97,10 @@ podAnnotations: {}
 
 nodeSelector: {}
 
-securityContext: {}
-#  fsGroup: 1000
-#  runAsUser: 1000
-#  runAsGroup: 1000
+securityContext:
+  fsGroup: 1000
+  runAsUser: 1000
+  runAsGroup: 1000
 
 autoscaling: 
   enabled: false

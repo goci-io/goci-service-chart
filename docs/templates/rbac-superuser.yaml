@@ -1,0 +1,58 @@
+{{- if and .Values.rbac.create .Values.rbac.superUser .Values.rbac.superUser.create }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ .Values.rbac.superUser.name | default include "goci-service.fullname" . }}
+  labels:
+    type: Service
+    {{ include "goci-service.labels" . | indent 4 }}
+rules:
+- apiGroups:
+  - ""
+  - apps
+  - extensions
+  - batch
+  - autoscaling
+  - networking.k8s.io
+  resources:
+  - secrets
+  - configmaps
+  - endpoints
+  - services
+  - services/status
+  - persistentvolumeclaims
+  - persistentvolumeclaims/status
+  - deployments
+  - deployments/status
+  - ingresses
+  - ingresses/status
+  - cronjobs
+  - cronjobs/status
+  - jobs
+  - jobs/status
+  - daemonsets
+  - daemonsets/status
+  - statefulsets
+  - statefulsets/status
+  - replicasets
+  - replicasets/status
+  - replicationcontrollers/status
+  - horizontalpodautoscalers
+  - horizontalpodautoscalers/status
+  - poddisruptionbudgets
+  - poddisruptionbudgets/status
+  - rolebindings
+  - clusterrolebindings
+  - limitranges
+  - namespaces
+  - namespaces/status
+  - resourcequotas
+  - resourcequotas/status
+  - networkpolicies
+  - serviceaccounts
+  verbs:
+  - '*'
+{{- with .Values.rbac.superUser.additionalRules }}
+{{ toYaml . | nindent 2 }}
+{{- end }}
+{{- end }}
