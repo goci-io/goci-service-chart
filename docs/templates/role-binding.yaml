@@ -20,8 +20,7 @@ roleRef:
   name: {{ .Values.rbac.roleName | default .Release.Name }}
 {{- end }}
 subjects:
-- apiGroup: rbac.authorization.k8s.io
-  kind: ServiceAccount
+- kind: ServiceAccount
   namespace: {{ .Release.Namespace }}
   name: {{ .Values.rbac.serviceAccount | default .Release.Name }}
 {{- end }}
