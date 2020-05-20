@@ -11,7 +11,7 @@ rbac:
   create: true
   # serviceAccount: ""
   superUser:
-    enabled: false
+    create: false
     # name: ""
     # additionalRules:
     # - apiGroups:
@@ -22,7 +22,7 @@ rbac:
     #   - *
 
   appUser:
-    enabled: false
+    create: false
     # name: ""
     # additionalRules:
     # - apiGroups:
