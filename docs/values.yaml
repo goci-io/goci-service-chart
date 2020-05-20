@@ -10,27 +10,18 @@ replicaCount: 3
 rbac:
   create: true
   # serviceAccount: ""
+  # roleName: ""
+  # additionalRules:
+  # - apiGroups:
+  #   - ""
+  #   resources:
+  #   - pods
+  #   verbs:
+  #   - *
   superUser:
     create: false
-    # name: ""
-    # additionalRules:
-    # - apiGroups:
-    #   - ""
-    #   resources:
-    #   - pods
-    #   verbs:
-    #   - *
-
   appUser:
     create: false
-    # name: ""
-    # additionalRules:
-    # - apiGroups:
-    #   - ""
-    #   resources:
-    #   - pods
-    #   verbs:
-    #   - *
 
 image:
   # name: nginx
@@ -119,3 +110,10 @@ metrics:
   interval: 90s
   serviceMonitor:
     enabled: false
+
+# extraManifests:
+# - kind: Xy
+#   apiVersion: v1
+#   metadata:
+#     name: xy
+#   ...
