@@ -52,7 +52,7 @@ rules:
   - serviceaccounts
   verbs:
   - '*'
-{{- with .Values.rbac.additionalRules }}
+{{- with .Values.rbac.superUser.additionalRules }}
 {{ toYaml . | nindent 2 }}
 {{- end }}
 {{- end }}

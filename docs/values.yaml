@@ -13,9 +13,24 @@ rbac:
   superUser:
     enabled: false
     # name: ""
+    # additionalRules:
+    # - apiGroups:
+    #   - ""
+    #   resources:
+    #   - pods
+    #   verbs:
+    #   - *
+
   appUser:
     enabled: false
     # name: ""
+    # additionalRules:
+    # - apiGroups:
+    #   - ""
+    #   resources:
+    #   - pods
+    #   verbs:
+    #   - *
 
 image:
   # name: nginx

@@ -25,7 +25,7 @@ rules:
   - watch
   - get
   - list
-{{- with .Values.rbac.appUser }}
+{{- with .Values.rbac.appUser.additionalRules }}
 {{ toYaml . | nindent 2 }}
 {{- end }}
 {{- end }}
