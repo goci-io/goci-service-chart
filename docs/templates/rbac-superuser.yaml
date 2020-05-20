@@ -5,7 +5,7 @@ metadata:
   name: {{ .Values.rbac.roleName | default .Release.Name }}
   labels:
     type: Service
-    {{ include "goci-service.labels" . | indent 4 }}
+    {{ include "goci-service.labels" . | nindent 4 }}
 rules:
 - apiGroups:
   - ""
@@ -53,6 +53,6 @@ rules:
   verbs:
   - '*'
 {{- with .Values.rbac.additionalRules }}
-{{ toYaml . | nindent 2 }}
+  {{ toYaml . | nindent 2 }}
 {{- end }}
 {{- end }}

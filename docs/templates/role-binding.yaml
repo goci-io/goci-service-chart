@@ -6,7 +6,7 @@ kind: RoleBinding
 kind: ClusterRoleBinding
 {{- end }}
 metadata:
-  name: {{ include "goci-service.fullname" . }}
+  name: {{ .Values.rbac.roleName | default .Release.Name }}
 {{- if .Values.rbac.appUser.create }}
   namespace: user-1-namespace
 roleRef:
