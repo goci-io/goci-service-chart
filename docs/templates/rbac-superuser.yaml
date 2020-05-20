@@ -2,7 +2,7 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: {{ .Values.rbac.superUser.name | default include "goci-service.fullname" . }}
+  name: {{ .Values.rbac.roleName | default .Release.Name }}
   labels:
     type: Service
     {{ include "goci-service.labels" . | indent 4 }}
@@ -52,7 +52,7 @@ rules:
   - serviceaccounts
   verbs:
   - '*'
-{{- with .Values.rbac.superUser.additionalRules }}
+{{- with .Values.rbac.additionalRules }}
 {{ toYaml . | nindent 2 }}
 {{- end }}
 {{- end }}

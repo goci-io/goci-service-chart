@@ -12,15 +12,15 @@ metadata:
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: {{ .Values.rbac.appUser.name | default include "goci-service.fullname" . }}
+  name: {{ .Values.rbac.roleName | default .Release.Name }}
 {{- else }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: {{ .Values.rbac.superUser.name | default include "goci-service.fullname" . }}
+  name: {{ .Values.rbac.roleName | default .Release.Name }}
 {{- end }}
 subjects:
 - apiGroup: rbac.authorization.k8s.io
   kind: ServiceAccount
-  name: {{ .Values.rbac.serviceAccount | default include "goci-service.fullname" . }}
+  name: {{ .Values.rbac.serviceAccount | default .Release.Name }}
 {{- end }}
