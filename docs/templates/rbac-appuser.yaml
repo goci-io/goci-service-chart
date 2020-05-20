@@ -6,7 +6,7 @@ metadata:
   namespace: {{ .Release.Namespace }}
   labels:
     type: Service
-    {{ include "goci-service.labels" . | indent 4 }}
+    {{ include "goci-service.labels" . | nindent 4 }}
 rules:
 - apiGroups:
   - ""
@@ -26,6 +26,6 @@ rules:
   - get
   - list
 {{- with .Values.rbac.additionalRules }}
-{{ toYaml . | nindent 2 }}
+  {{ toYaml . | nindent 2 }}
 {{- end }}
 {{- end }}
