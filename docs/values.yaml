@@ -80,9 +80,11 @@ configMap:
 
 health:
   path: /health
+  # period: 10
 
 readiness:
   path: /health
+  # period: 30
 
 podAnnotations: {}
 
