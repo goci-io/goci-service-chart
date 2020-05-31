@@ -42,7 +42,9 @@ rules:
   - horizontalpodautoscalers/status
   - poddisruptionbudgets
   - poddisruptionbudgets/status
+  - roles
   - rolebindings
+  - clusterroles
   - clusterrolebindings
   - limitranges
   - namespaces
