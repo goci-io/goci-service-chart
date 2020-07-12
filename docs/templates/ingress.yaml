@@ -1,4 +1,4 @@
-{{- if .Values.ingress.enabled -}}
+{{- if .Values.ingress.create -}}
 {{- $fullName := include "goci-service.fullname" . -}}
 apiVersion: extensions/v1beta1
 kind: Ingress
