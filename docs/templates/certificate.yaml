@@ -1,0 +1,24 @@
+{{- if and .Values.certificate .Values.certificate.create }}
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: {{ include "goci-service.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  secretName: {{ include "goci-service.fullname" . }}-tls
+  dnsNames:
+  {{- if .Values.certificate.serviceDns | default true }}
+  - {{ include "goci-service.fullname" . }}.{{ .Release.Namespace }}.svc
+  - {{ include "goci-service.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local
+  {{- end }}
+  {{- if and .Values.ingress.enabled .Values.certificate.ingressDns | default false }}
+  {{- range .hosts }}
+  - {{ .host | quote }}
+  {{- end }}
+  {{- end }}
+  {{ toYaml .Values.certificate.dnsNames | nindent 2 }}
+  issuerRef:
+    name: {{ .Values.certificate.issuer }}
+    kind: {{ .Values.certificate.kind | default "Issuer" }}
+    group: cert-manager.io
+{{- end }}
