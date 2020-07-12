@@ -11,7 +11,7 @@ spec:
   - {{ include "goci-service.fullname" . }}.{{ .Release.Namespace }}.svc
   - {{ include "goci-service.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local
   {{- end }}
-  {{- if and .Values.ingress.enabled .Values.certificate.ingressDns | default true }}
+  {{- if and .Values.ingress.enabled .Values.certificate.ingressDns | default false }}
   {{- range .hosts }}
   - {{ .host | quote }}
   {{- end }}
