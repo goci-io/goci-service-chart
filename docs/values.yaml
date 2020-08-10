@@ -91,6 +91,7 @@ readiness:
   # period: 30
 
 podAnnotations: {}
+deploymentAnnotations: {}
 
 nodeSelector: {}
 
