@@ -62,13 +62,13 @@ configMap:
   # name: app-config (defaults to release name)
   # data: {}
 
-# certificate:
-#   create: true
-#   issuer: my-cert-manager-issuer
-#   kind: ClusterIssuer|Issuer (defaults to Issuer)
-#   serviceDns: false
-#   ingressDns: true
-#   dnsNames: []
+certificate:
+  create: false
+# issuer: my-cert-manager-issuer
+# kind: ClusterIssuer|Issuer (defaults to Issuer)
+# serviceDns: false
+# ingressDns: true
+# dnsNames: []
 
 # extraVolumeMounts:
 # - name: "mount"

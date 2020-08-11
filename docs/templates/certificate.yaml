@@ -7,13 +7,13 @@ metadata:
 spec:
   secretName: {{ include "goci-service.fullname" . }}-tls
   dnsNames:
-  {{- if .Values.certificate.serviceDns | default true }}
+  {{- if .Values.certificate.serviceDns | default true }}
   - {{ include "goci-service.fullname" . }}.{{ .Release.Namespace }}.svc
   - {{ include "goci-service.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local
   {{- end }}
-  {{- if and .Values.ingress.enabled .Values.certificate.ingressDns | default false }}
+  {{- if and .Values.ingress.enabled .Values.certificate.ingressDns | default false }}
   {{- range .hosts }}
-  - {{ .host | quote }}
+  - {{ .host | quote }}
   {{- end }}
   {{- end }}
   {{ toYaml .Values.certificate.dnsNames | nindent 2 }}

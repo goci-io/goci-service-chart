@@ -1,9 +1,8 @@
-{{- if .Values.ingress.create -}}
-{{- $fullName := include "goci-service.fullname" . -}}
+{{- if .Values.ingress.create }}
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: {{ $fullName }}
+  name: {{ include "goci-service.fullname" . }}
   namespace: {{ .Release.Namespace }}
   labels:
 {{ include "goci-service.labels" . | indent 4 }}
@@ -18,8 +17,7 @@ spec:
       {{- range .Values.ingress.hosts }}
         - {{ .host | quote }}
       {{- end }}
-      secretName: {{ $fullName }}-tls
-  {{- end }}
+      secretName: {{ include "goci-service.fullname" . }}-tls
 {{- end }}
   rules:
   {{- range .Values.ingress.hosts }}
@@ -29,7 +27,7 @@ spec:
         {{- range .paths }}
           - path: {{ . }}
             backend:
-              serviceName: {{ $fullName }}
+              serviceName: {{ include "goci-service.fullname" . }}
               servicePort: http
         {{- end }}
   {{- end }}
