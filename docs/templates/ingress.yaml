@@ -1,4 +1,5 @@
 {{- if .Values.ingress.create }}
+{{- $fullname := include "goci-service.fullname" . -}}
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
@@ -27,7 +28,7 @@ spec:
         {{- range .paths }}
           - path: {{ . }}
             backend:
-              serviceName: {{ include "goci-service.fullname" . }}
+              serviceName: {{ $fullname }}
               servicePort: http
         {{- end }}
   {{- end }}
