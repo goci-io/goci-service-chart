@@ -1,4 +1,4 @@
-{{- if and .Values.rbac.create and (len .Values.rbac.additionalRules gt 0) and not .Values.rbac.appUser not .Values.rbac.appUser.create and not .Values.rbac.superUser not .Values.rbac.superUser.create }}
+{{- if and .Values.rbac.create and (len .Values.rbac.additionalRules gt 0) and not .Values.rbac.appUser.create and not .Values.rbac.superUser.create }}
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
