@@ -108,7 +108,7 @@ autoscaling:
   # targetRequestsPerSecond: 10k
 
 podDisruptionBudget:
-  enabled: true
+  create: true
   maxUnavailable: 1
 
 metrics:

@@ -74,7 +74,7 @@ spec:
         envFrom:
         - secretRef:
             name: {{ include "goci-service.fullname" . }}
-        {{- if .Values.configMap.enabled }}
+        {{- if .Values.configMap.create }}
         - configMapRef:
             name: {{ .Values.configMap.name | default .Release.Name }}
         {{- end }}
