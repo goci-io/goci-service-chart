@@ -21,7 +21,7 @@ spec:
       target:
         type: AverageUtilization
         averageUtilization: {{ .Values.autoscaling.targetAverageUtilization }}
-  {{- if .Values.ingress.enabled -}}
+  {{- if .Values.ingress.create -}}
   - type: Object
     object:
       metric:
