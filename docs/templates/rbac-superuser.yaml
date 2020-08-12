@@ -12,6 +12,7 @@ rules:
   - apps
   - extensions
   - batch
+  - policy
   - autoscaling
   - networking.k8s.io
   - rbac.authorization.k8s.io
@@ -44,8 +45,6 @@ rules:
   - poddisruptionbudgets/status
   - roles
   - rolebindings
-  - clusterroles
-  - clusterrolebindings
   - limitranges
   - namespaces
   - namespaces/status
@@ -53,6 +52,7 @@ rules:
   - resourcequotas/status
   - networkpolicies
   - serviceaccounts
+  - podsecuritypolicies
   verbs:
   - '*'
 {{- with .Values.rbac.additionalRules }}
